@@ -1,628 +1,1282 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido al Futuro - Afiliados Az InnovationX</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --color-primary: #c41e3a;
-            --color-secondary: #ffd700;
-            --color-background: #1a1a2e;
-            --color-dark-accent: #16213e;
-            --color-text: #f0f0f0;
-            --color-glass-bg: rgba(255, 255, 255, 0.05);
-            --color-glass-border: rgba(255, 255, 255, 0.1);
-            --shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            --shadow-dark: 0 4px 15px rgba(0, 0, 0, 0.2);
-            --border-radius: 16px;
-            --font-family: 'Poppins', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programa de Afiliados — Az InnovationX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:      #3E92CC;
+      --deep:      #0A2463;
+      --teal:      #1B998B;
+      --cyan:      #00F5FF;
+      --gold:      #D4AF37;
+      --dark:      #070D1F;
+      --dark2:     #0D1528;
+      --dark3:     #111827;
+      --glass:     rgba(255,255,255,0.04);
+      --glass-b:   rgba(255,255,255,0.08);
+      --text:      #F0F4FF;
+      --muted:     rgba(240,244,255,0.55);
+      --radius:    18px;
+      --radius-sm: 10px;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    html { scroll-behavior: smooth; }
 
-        body {
-            font-family: var(--font-family);
-            background-color: var(--color-background);
-            color: var(--color-text);
-            line-height: 1.7;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 15% 20%, rgba(196, 30, 58, 0.2), transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(255, 215, 0, 0.15), transparent 40%);
-            background-attachment: fixed;
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--dark);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
 
-        /* --- Animations --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    /* ── AMBIENT GLOWS ── */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-orb.g1 { width: 500px; height: 500px; top: -150px; left: -150px; background: rgba(62,146,204,0.15); }
+    .glow-orb.g2 { width: 400px; height: 400px; bottom: 10%; right: -100px; background: rgba(0,245,255,0.08); }
+    .glow-orb.g3 { width: 300px; height: 300px; top: 40%; left: 30%; background: rgba(27,153,139,0.07); }
 
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.3); }
-            50% { box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.5); }
-        }
+    /* ── SCROLL PROGRESS ── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      z-index: 9999;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(0,245,255,0.5);
+    }
 
-        /* --- General Card Style --- */
-        .card {
-            background: var(--color-glass-bg);
-            border-radius: var(--border-radius);
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid var(--color-glass-border);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-dark);
-            animation: fadeIn 1s ease-out;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(7,13,31,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(62,146,204,0.12);
+      transition: padding 0.3s ease;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo span {
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-logo-dot {
+      width: 8px; height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+      animation: blink 2s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .nav-cta-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--dark);
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: box-shadow 0.3s;
+    }
+    .nav-cta-link:hover { box-shadow: 0 0 20px rgba(0,245,255,0.4); }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-light);
-        }
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
 
-        h1, h2, h3, h4 {
-            font-weight: 600;
-        }
+    /* ── SECTION SPACING ── */
+    section { padding: 5rem 0; }
 
-        h2 {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            color: var(--color-secondary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--color-primary);
-            display: inline-block;
-        }
+    /* ── WELCOME HERO ── */
+    .welcome-hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 7rem 1.5rem 5rem;
+      position: relative;
+      text-align: center;
+    }
+    .welcome-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .confetti-row {
+      font-size: 1.8rem;
+      letter-spacing: 0.4em;
+      animation: fadeUp 0.5s ease both;
+    }
+    .welcome-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,245,255,0.07);
+      border: 1px solid rgba(0,245,255,0.25);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      animation: fadeUp 0.55s 0.05s ease both;
+    }
+    .welcome-badge-dot {
+      width: 7px; height: 7px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+      animation: blink 2s ease infinite;
+    }
+    .welcome-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .welcome-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 60%, var(--teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .welcome-message {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.75;
+      animation: fadeUp 0.65s 0.15s ease both;
+    }
+    .welcome-cards-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .welcome-info-card {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.4rem;
+      text-align: left;
+      min-width: 160px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .welcome-info-card:hover { border-color: rgba(0,245,255,0.2); background: rgba(0,245,255,0.04); }
+    .wic-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .wic-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--text), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+    .wic-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .btn-primary {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.9rem 2.2rem;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: var(--dark);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.75s 0.25s ease both;
+    }
+    .btn-primary:hover { box-shadow: 0 8px 30px rgba(0,245,255,0.35); transform: translateY(-2px); }
+    .btn-secondary {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.9rem 2.2rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    }
+    .btn-secondary:hover { border-color: var(--cyan); background: rgba(0,245,255,0.05); transform: translateY(-2px); }
 
-        /* --- Header --- */
-        header {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(145deg, var(--color-primary), #8b1529);
-            border-radius: var(--border-radius);
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
+    /* ── SECTION LABELS ── */
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(0,245,255,0.07);
+      border: 1px solid rgba(0,245,255,0.18);
+      border-radius: 50px;
+      padding: 4px 14px;
+      margin-bottom: 1rem;
+    }
+    .section-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+      line-height: 1.1;
+    }
+    .section-heading em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-desc { color: var(--muted); font-size: 1rem; max-width: 520px; line-height: 1.75; }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 50%;
-            filter: blur(50px);
-        }
+    /* ── FOUNDER SECTION ── */
+    .founder-section { padding: 5rem 0; }
+    .founder-card {
+      background: var(--dark2);
+      border: 1px solid rgba(62,146,204,0.15);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 380px;
+    }
+    .founder-visual {
+      background: linear-gradient(135deg, var(--deep) 0%, rgba(62,146,204,0.2) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .founder-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233E92CC' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .founder-avatar-large {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 30px rgba(0,245,255,0.2);
+    }
+    .founder-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    .founder-title {
+      font-size: 0.82rem;
+      color: var(--cyan);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+    .founder-content {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .founder-quote {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: rgba(240,244,255,0.85);
+      margin-bottom: 1.5rem;
+      padding-left: 1.2rem;
+      border-left: 3px solid var(--blue);
+    }
+    .founder-quote strong { color: var(--cyan); font-weight: 500; }
+    .founder-credentials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .credential-tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 50px;
+      padding: 4px 12px;
+    }
 
-        header h1 {
-            font-size: clamp(2.2rem, 6vw, 3.5rem);
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-            margin-bottom: 1rem;
-        }
+    /* ── HOW IT WORKS ── */
+    .how-section { padding: 5rem 0; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .step-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+      overflow: hidden;
+    }
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .step-card:hover { border-color: rgba(0,245,255,0.2); transform: translateY(-4px); }
+    .step-card:hover::before { opacity: 1; }
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: rgba(62,146,204,0.12);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step-icon {
+      width: 44px; height: 44px;
+      background: rgba(62,146,204,0.1);
+      border: 1px solid rgba(62,146,204,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    .step-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+    .step-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
 
-        header p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
+    /* ── SERVICES ── */
+    .services-section { padding: 5rem 0; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(62,146,204,0.04), rgba(0,245,255,0.02));
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+    .service-card:hover { border-color: rgba(0,245,255,0.3); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(0,245,255,0.06); }
+    .service-card:hover::after { opacity: 1; }
+    .service-card.featured {
+      border-color: rgba(0,245,255,0.25);
+      background: linear-gradient(135deg, rgba(62,146,204,0.08), rgba(0,245,255,0.04));
+    }
+    .service-badge-new {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--cyan);
+      color: var(--dark);
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+    .service-icon-wrap {
+      width: 48px; height: 48px;
+      background: rgba(62,146,204,0.1);
+      border: 1px solid rgba(62,146,204,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .service-card:hover .service-icon-wrap { background: rgba(0,245,255,0.1); border-color: rgba(0,245,255,0.3); }
+    .service-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+    .service-price {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--cyan);
+      font-weight: 500;
+    }
+    .service-commission {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      color: #4ade80;
+      margin-top: 0.5rem;
+    }
+    .service-commission::before { content: '●'; font-size: 0.5rem; }
 
-        .badge {
-            display: inline-block;
-            background: var(--color-secondary);
-            color: var(--color-background);
-            padding: 0.8rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 700;
-            margin-top: 2rem;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .badge:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
-        }
+    /* ── COMMISSION CALC ── */
+    .calc-section { padding: 5rem 0; }
+    .calc-card {
+      background: var(--dark2);
+      border: 1px solid rgba(62,146,204,0.15);
+      border-radius: var(--radius);
+      padding: 3rem;
+    }
+    .calc-header { text-align: center; margin-bottom: 2.5rem; }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .calc-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .calc-row.active { border-color: var(--blue); background: rgba(62,146,204,0.06); }
+    .calc-row span { font-size: 0.9rem; color: var(--muted); }
+    .calc-row strong { font-family: 'Syne', sans-serif; font-size: 0.95rem; }
+    .calc-result-box {
+      background: linear-gradient(135deg, rgba(62,146,204,0.1), rgba(0,245,255,0.06));
+      border: 1px solid rgba(0,245,255,0.2);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .calc-result-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .calc-result-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .calc-result-note { font-size: 0.82rem; color: var(--muted); }
 
-        /* --- Founder Message --- */
-        .founder-message {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            border-left: 5px solid var(--color-secondary);
-            padding: 2rem;
-            background: rgba(196, 30, 58, 0.1);
-        }
-        .founder-avatar {
-            flex-shrink: 0;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(255, 215, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--color-secondary);
-        }
+    /* ── RESOURCES ── */
+    .resources-section { padding: 5rem 0; }
+    .resources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    .resource-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .resource-card:hover { border-color: rgba(0,245,255,0.25); transform: translateX(4px); }
+    .resource-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(62,146,204,0.1);
+      border: 1px solid rgba(62,146,204,0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .resource-card h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 2px; }
+    .resource-card p { font-size: 0.8rem; color: var(--muted); }
+    .resource-arrow {
+      margin-left: auto;
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: color 0.3s, transform 0.3s;
+    }
+    .resource-card:hover .resource-arrow { color: var(--cyan); transform: translateX(3px); }
 
-        .founder-message h2 {
-            border: none;
-            padding: 0;
-            margin-bottom: 1rem;
-        }
+    /* Social */
+    .social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 3rem; }
+    .social-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .social-card:hover { transform: translateY(-4px); }
+    .social-card.wa:hover { border-color: rgba(37,211,102,0.4); box-shadow: 0 8px 25px rgba(37,211,102,0.1); }
+    .social-card.fb:hover { border-color: rgba(66,103,178,0.4); box-shadow: 0 8px 25px rgba(66,103,178,0.1); }
+    .social-card.ig:hover { border-color: rgba(225,48,108,0.4); box-shadow: 0 8px 25px rgba(225,48,108,0.1); }
+    .social-card.tk:hover { border-color: rgba(0,242,234,0.4); box-shadow: 0 8px 25px rgba(0,242,234,0.1); }
+    .social-icon { font-size: 1.8rem; }
+    .social-name { font-size: 0.85rem; font-weight: 600; }
+    .social-handle { font-size: 0.75rem; color: var(--muted); }
 
-        .founder-message strong {
-            color: var(--color-secondary);
-        }
-        
-        /* --- Service Grid --- */
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
+    /* ── TIPS ── */
+    .tips-section { padding: 5rem 0; }
+    .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    .tip-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+    .tip-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tip-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .tip-card ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .tip-card ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-size: 0.8rem;
+    }
 
-        .service-card {
-            background: linear-gradient(145deg, rgba(196, 30, 58, 0.2), rgba(139, 21, 41, 0.1));
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            border: 1px solid var(--color-glass-border);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
+    /* ── MESSAGE TEMPLATES ── */
+    .templates-section { padding: 5rem 0; }
+    .template-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .template-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .template-text { font-size: 0.92rem; color: rgba(240,244,255,0.8); line-height: 1.75; }
+    .copy-btn {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      background: rgba(62,146,204,0.12);
+      border: 1px solid rgba(62,146,204,0.25);
+      color: var(--blue);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .copy-btn:hover { background: rgba(62,146,204,0.2); color: var(--cyan); border-color: var(--cyan); }
+    .copy-btn.copied { background: rgba(74,222,128,0.1); border-color: rgba(74,222,128,0.3); color: #4ade80; }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--color-secondary);
-            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.4);
-        }
+    /* ── CTA SECTION ── */
+    .cta-section { padding: 5rem 0; }
+    .cta-card {
+      background: linear-gradient(135deg, var(--deep) 0%, rgba(62,146,204,0.15) 100%);
+      border: 1px solid rgba(62,146,204,0.25);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(0,245,255,0.08), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .cta-card h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-card p { color: var(--muted); max-width: 500px; margin: 0 auto 2.5rem; position: relative; z-index: 1; }
+    .cta-card .btn-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; position: relative; z-index: 1; }
 
-        .service-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-            transform: skewX(-25deg);
-        }
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 3rem 0;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo span {
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    footer p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.3rem; }
 
-        .service-card:hover::after {
-            left: 150%;
-        }
-        
-        .service-card h4 {
-            color: var(--color-secondary);
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        .service-card p {
-            font-size: 0.95rem;
-            opacity: 0.8;
-        }
-        
-        .new-service-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--color-secondary);
-            color: var(--color-background);
-            padding: 3px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        /* Special style for the new service */
-        .service-card.new-service {
-            background: linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(196, 30, 58, 0.2));
-            border-color: var(--color-secondary);
-            animation: pulseGlow 2s infinite;
-        }
-
-        /* --- Step by Step Guide --- */
-        .step {
-            background: var(--color-glass-bg);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--color-secondary);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        
-        .step:hover {
-            transform: translateX(10px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .step h3 {
-            color: var(--color-secondary);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* --- Resources & Links --- */
-        .link-box, .social-btn {
-            background: var(--color-glass-bg);
-            padding: 1rem;
-            border-radius: 12px;
-            border: 1px solid var(--color-glass-border);
-            transition: background-color 0.3s, border-color 0.3s;
-            text-decoration: none;
-            color: var(--color-text);
-            display: block;
-        }
-
-        .link-box:not(:last-child) {
-             margin-bottom: 1.5rem;
-        }
-        .social-links {
-            margin-bottom: 2.5rem;
-        }
-
-
-        .link-box:hover, .social-btn:hover {
-            background-color: rgba(255, 215, 0, 0.1);
-            border-color: var(--color-secondary);
-        }
-        
-        .link-box a {
-            color: var(--color-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            word-break: break-all;
-        }
-
-        .social-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .social-btn {
-            text-align: center;
-        }
-
-        /* --- Tips & Messages --- */
-        .tip-box {
-            background: rgba(255, 215, 0, 0.05);
-            border-left: 5px solid var(--color-secondary);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 8px;
-        }
-        
-        .tip-box ul {
-            list-style-position: inside;
-        }
-
-        .message-template {
-            background: var(--color-glass-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--color-glass-border);
-            position: relative;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 0.5rem 1rem;
-            background: var(--color-secondary);
-            color: var(--color-background);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: var(--font-family);
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        .copy-btn:hover {
-            background-color: #fff;
-            transform: scale(1.05);
-        }
-        
-        .copy-btn.copied {
-            background-color: #28a745;
-            color: white;
-        }
-
-        /* --- Contact Section --- */
-        .contact-box {
-            background: linear-gradient(145deg, var(--color-secondary), #ffc107);
-            color: var(--color-background);
-            text-align: center;
-        }
-
-        .contact-box h2 {
-            color: var(--color-background);
-            border: none;
-        }
-        
-        .contact-box p {
-            opacity: 0.9;
-        }
-        
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background: var(--color-background);
-            color: var(--color-text);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .btn:hover {
-            background: var(--color-text);
-            color: var(--color-background);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: rgba(255,255,255,0.7);
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            .founder-message {
-                flex-direction: column;
-                text-align: center;
-            }
-            header {
-                padding: 3rem 1.5rem;
-            }
-        }
-    </style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .founder-card { grid-template-columns: 1fr; }
+      .calc-grid { grid-template-columns: 1fr; }
+      .resources-grid { grid-template-columns: 1fr; }
+      .tips-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0.8rem 1.2rem; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .social-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-commission-badge { flex-direction: column; gap: 0.5rem; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .social-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>🎉 ¡Bienvenido al Futuro de Afiliados Az InnovationX! 🎉</h1>
-            <p>Transforma tu red de contactos en ingresos constantes con un programa diseñado para tu éxito.</p>
-            <div class="badge">💰 Ganas 20% por cada referencia exitosa</div>
-        </header>
+<div id="progress-bar"></div>
+<div class="glow-orb g1"></div>
+<div class="glow-orb g2"></div>
+<div class="glow-orb g3"></div>
 
-        <section class="card">
-            <div class="founder-message">
-                <div class="founder-avatar">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="1.5" stroke="var(--color-secondary)">
-                        <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <div>
-                    <h2>👋 Mensaje Personal del Fundador</h2>
-                    <p>
-                        <strong>Mi nombre es Evaristo San Juan Azuara</strong>, y quiero darte la más cordial bienvenida a nuestra familia de afiliados.
-                    </p>
-                    <p>
-                        No estás solo/a en esto. Mi compromiso contigo es brindarte todo el apoyo, las herramientas y la asesoría que necesites para que tengas éxito. <strong>Juntos construiremos tu éxito.</strong> 🚀
-                    </p>
-                </div>
-            </div>
-        </section>
+<!-- NAV -->
+<nav>
+  <a href="https://az-innovation-x.vercel.app/" class="nav-logo" target="_blank">
+    <div class="nav-logo-dot"></div>
+    Az <span>InnovationX</span>
+  </a>
+  <a href="https://wa.me/525653915739" target="_blank" class="nav-cta-link">💬 Hablar con Evaristo</a>
+</nav>
 
-        <section class="card">
-            <h2>🎯 ¿Cómo Funciona?</h2>
-            <div class="step">
-                <h3>✅ Ganas el 20% de comisión</h3>
-                <p>Por cada cliente que refieras y complete un proyecto con nosotros, recibirás el 20% del valor del servicio.</p>
-            </div>
-            <div class="step">
-                <h3>✅ Sin límites de referidos</h3>
-                <p>Mientras más recomiendas, más ganas. No hay techo para tus comisiones.</p>
-            </div>
-            <div class="step">
-                <h3>✅ Pagos seguros y transparentes</h3>
-                <p>Recibirás tu comisión una vez que el cliente complete su proyecto. Todo es transparente y rastreable.</p>
-            </div>
-            <div class="step">
-                <h3>✅ Soporte constante</h3>
-                <p>Tendrás acceso directo a mí (Evaristo) para resolver dudas y recibir asesoría personalizada.</p>
-            </div>
-        </section>
+<!-- WELCOME HERO -->
+<section class="welcome-hero">
+  <div class="container">
+    <div class="welcome-inner">
 
-        <section class="card">
-            <h2>📚 Guía Rápida para el Éxito</h2>
-            
-            <div class="step">
-                <h3>Paso 1: Conoce Nuestros Servicios</h3>
-                <p style="margin-bottom: 1.5rem;">Familiarízate con las soluciones que ofrecemos para recomendarlas con confianza.</p>
-                
-                <div class="service-grid">
-                    <div class="service-card new-service" onclick="window.open('https://articulos-azinnx.vercel.app/', '_blank')">
-                        <div class="new-service-badge">NUEVO</div>
-                        <h4>✍️ Artículos AZINNX</h4>
-                        <p>Tienda de artículos con nuestra marca: sudaderas, termos y gorras con 3 diseños diferentes.</p>
-                    </div>
-                    <div class="service-card" onclick="window.open('https://paginawebaplicaciones.netlify.app/', '_blank')">
-                        <h4>📱 Aplicaciones Móviles</h4>
-                        <p>Apps para Android e iOS</p>
-                    </div>
-                    <div class="service-card" onclick="window.open('https://paginawebdetiendaonline.netlify.app/', '_blank')">
-                        <h4>🛒 Tiendas Online</h4>
-                        <p>E-commerce completo y funcional</p>
-                    </div>
-                    <div class="service-card" onclick="window.open('https://chatbotsaz.netlify.app/', '_blank')">
-                        <h4>🤖 Chatbots Inteligentes</h4>
-                        <p>Automatización con IA</p>
-                    </div>
-                    <div class="service-card" onclick="window.open('https://paginawebseguridadinformatica.netlify.app/', '_blank')">
-                        <h4>🔒 Seguridad Informática</h4>
-                        <p>Protección para tu negocio digital</p>
-                    </div>
-                    <div class="service-card" onclick="window.open('https://paginawebsolucionescloud.netlify.app/', '_blank')">
-                        <h4>☁️ Soluciones Cloud</h4>
-                        <p>Infraestructura en la nube</p>
-                    </div>
-                </div>
-            </div>
+      <div class="confetti-row" aria-hidden="true">🎉 🚀 ✨ 💫 🎊</div>
 
-            <div class="step">
-                <h3>Paso 2: Comparte y Ayuda</h3>
-                <p>Identifica negocios que necesiten presencia digital y ofréceles una solución real. Recuerda, no vendes, ayudas.</p>
-            </div>
+      <div class="welcome-badge">
+        <div class="welcome-badge-dot"></div>
+        Afiliado Oficial · Az InnovationX
+      </div>
 
-            <div class="step">
-                <h3>Paso 3: Conecta con Nosotros</h3>
-                <p>Comparte nuestros enlaces oficiales o pon a tus referidos en contacto directo conmigo.</p>
-            </div>
-        </section>
+      <h1 class="welcome-title">¡Bienvenido a<br>la <em>Familia Az</em>!</h1>
 
-        <section class="card">
-            <h2>🔗 Recursos y Enlaces Oficiales</h2>
-            
-            <h3 style="color: var(--color-secondary); margin-bottom: 1rem; font-size: 1.5rem;">📱 Redes Sociales</h3>
-            <div class="social-links">
-                <a href="https://wa.me/5620042412" target="_blank" class="social-btn"><strong>WhatsApp</strong><br><small>Contacto Directo</small></a>
-                <a href="https://www.facebook.com/AzInnovationX?mibextid=ZbWKwL" target="_blank" class="social-btn"><strong>Facebook</strong><br><small>@AzInnovationX</small></a>
-                <a href="https://www.instagram.com/azinnovationx?igsh=MWN6Y2I1OWZycHVkOA==" target="_blank" class="social-btn"><strong>Instagram</strong><br><small>@azinnovationx</small></a>
-                <a href="https://www.tiktok.com/@innovationx09?_t=ZS-8yJNEWarLPO&_r=1" target="_blank" class="social-btn"><strong>TikTok</strong><br><small>@innovationx09</small></a>
-            </div>
+      <p class="welcome-message">
+        Ya eres parte de algo grande. Aquí encontrarás todo lo que necesitas para empezar a ganar comisiones recomendando soluciones digitales reales.
+      </p>
 
-            <h3 style="color: var(--color-secondary); margin-bottom: 1rem; font-size: 1.5rem;">🌐 Sitios Web</h3>
-            <div class="link-box">
-                <strong>Página Web Oficial:</strong> <a href="https://az-innovation-x.vercel.app/" target="_blank">az-innovation-x.vercel.app</a>
-            </div>
-            <div class="link-box">
-                <strong>Blog Oficial:</strong> <a href="https://azinnovationx.blogspot.com/" target="_blank">azinnovationx.blogspot.com</a>
-            </div>
-            <div class="link-box">
-                <strong>Tienda de Apps:</strong> <a href="https://appsstoreaz.netlify.app/" target="_blank">appsstoreaz.netlify.app</a>
-            </div>
-            <div class="link-box">
-                <strong>Precios y Paquetes:</strong> <a href="https://precios1.netlify.app/" target="_blank">precios1.netlify.app</a>
-            </div>
-        </section>
+      <div class="welcome-cards-row">
+        <div class="welcome-info-card">
+          <div class="wic-icon">💰</div>
+          <div>
+            <div class="wic-value">20%</div>
+            <div class="wic-label">Tu comisión por referido</div>
+          </div>
+        </div>
+        <div class="welcome-info-card">
+          <div class="wic-icon">🔓</div>
+          <div>
+            <div class="wic-value">Sin límite</div>
+            <div class="wic-label">De clientes a referir</div>
+          </div>
+        </div>
+        <div class="welcome-info-card">
+          <div class="wic-icon">🛡️</div>
+          <div>
+            <div class="wic-value">30 días</div>
+            <div class="wic-label">Garantía en cada proyecto</div>
+          </div>
+        </div>
+      </div>
 
-        <section class="card">
-            <h2>💎 Consejos de Oro</h2>
-            <div class="tip-box">
-                <h3 style="color: var(--color-secondary); margin-bottom: 0.5rem;">🎯 Para Principiantes</h3>
-                <ul>
-                    <li><strong>No es venta, es ayuda:</strong> Enfócate en resolver problemas reales.</li>
-                    <li><strong>Identifica a quién ayudar:</strong> Negocios sin web, emprendedores, etc.</li>
-                    <li><strong>Sé auténtico:</strong> Las recomendaciones genuinas funcionan mejor.</li>
-                </ul>
-            </div>
-
-            <div class="tip-box">
-                <h3 style="color: var(--color-secondary); margin-bottom: 0.5rem;">📍 Dónde Compartir</h3>
-                <ul>
-                    <li>✅ Grupos de Facebook y LinkedIn</li>
-                    <li>✅ Estados de WhatsApp Business</li>
-                    <li>✅ Comunidades de emprendedores y networking</li>
-                </ul>
-            </div>
-
-            <h3 style="color: var(--color-secondary); margin: 2rem 0 1rem 0; font-size: 1.5rem;">💬 Mensajes de Ejemplo</h3>
-            
-            <div class="message-template">
-                <button class="copy-btn" onclick="copyMessage(this, 'msg1')">Copiar</button>
-                <p id="msg1"><strong>Mensaje General:</strong><br>
-                ¡Hola! 👋 Si buscas potenciar tu negocio en el mundo digital, te recomiendo Az InnovationX. Son especialistas en páginas web, apps y tiendas online. ¡Yo confío en ellos!</p>
-            </div>
-
-            <div class="message-template">
-                <button class="copy-btn" onclick="copyMessage(this, 'msg2')">Copiar</button>
-                <p id="msg2"><strong>Para Negocios Locales:</strong><br>
-                Hola, ¿has pensado en tener presencia online para llegar a más clientes? Conozco una empresa, Az InnovationX, que hace trabajos muy profesionales a precios competitivos. ¿Te interesa?</p>
-            </div>
-
-             <div class="message-template">
-                <button class="copy-btn" onclick="copyMessage(this, 'msg3')">Copiar</button>
-                <p id="msg3"><strong>Para Emprendedores:</strong><br>
-                ¡Hey! Si estás emprendiendo, checa a Az InnovationX. Entienden perfecto las necesidades de los que empezamos y ofrecen soluciones digitales a medida. Te dejo su contacto: https://wa.me/5620042412 💼✨</p>
-            </div>
-        </section>
-
-        <section class="card contact-box">
-            <h2>📞 ¿Tienes Dudas? ¡Contáctame!</h2>
-            <p>Estoy aquí para ayudarte a tener éxito.</p>
-            <div class="btn-group">
-                 <a href="https://wa.me/5620042412" class="btn">💬 Hablar por WhatsApp</a>
-                 <a href="mailto:soporteseguro98@gmail.com" class="btn">📧 Enviar Email</a>
-            </div>
-        </section>
+      <a href="#como-funciona" class="btn-primary" style="margin-top:0.5rem;">
+        Ver mi guía de inicio →
+      </a>
 
     </div>
+  </div>
+</section>
 
-    <footer>
-        <p>🚀 <strong>¡Bienvenido a la familia Az InnovationX!</strong> 🚀</p>
-        <p>Juntos construiremos tu éxito 💪</p>
-    </footer>
+<!-- FOUNDER -->
+<section class="founder-section" id="fundador">
+  <div class="container">
+    <div class="founder-card fade-up">
+      <div class="founder-visual">
+        <div class="founder-avatar-large">👨‍💻</div>
+        <div class="founder-name">Evaristo San Juan Azuara</div>
+        <div class="founder-title">Fundador & CEO · Az InnovationX</div>
+      </div>
+      <div class="founder-content">
+        <div class="section-label">Mensaje del Fundador</div>
+        <p class="founder-quote">
+          Bienvenido a nuestra familia de afiliados. <strong>No estás solo en esto.</strong> Mi compromiso contigo es darte todo el apoyo, las herramientas y la asesoría que necesites para tener éxito. Juntos construiremos algo extraordinario.
+        </p>
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:1.5rem; line-height:1.75;">
+          Somos una empresa 100% mexicana con sede en Huixquilucan, Edo. Méx., enfocada en crear soluciones digitales reales para PyMEs y emprendedores. <em style="color:var(--text); font-style:normal;">No vendemos promesas. Creamos soluciones.</em>
+        </p>
+        <div class="founder-credentials">
+          <span class="credential-tag">🎓 Ing. Seguridad Informática</span>
+          <span class="credential-tag">📍 Huixquilucan, Edo. Méx.</span>
+          <span class="credential-tag">🇲🇽 Empresa 100% Mexicana</span>
+          <span class="credential-tag">⭐ +30 días de garantía</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        function copyMessage(button, msgId) {
-            const messageEl = document.getElementById(msgId);
-            const clone = messageEl.cloneNode(true);
-            const strongTag = clone.querySelector('strong');
-            if (strongTag) {
-                strongTag.parentNode.removeChild(strongTag);
-            }
-            
-            const message = clone.textContent.trim();
-            
-            navigator.clipboard.writeText(message).then(() => {
-                const originalText = button.textContent;
-                button.textContent = '✓ Copiado';
-                button.classList.add('copied');
-                
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.classList.remove('copied');
-                }, 2000);
-            });
-        }
-    </script>
+<!-- HOW IT WORKS -->
+<section class="how-section" id="como-funciona">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Proceso</div>
+      <h2 class="section-heading">¿Cómo <em>funciona</em>?</h2>
+      <p class="section-desc">En 4 pasos simples puedes empezar a generar ingresos recomendando soluciones que realmente ayudan a los negocios.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card fade-up">
+        <div class="step-num">01</div>
+        <div class="step-icon">📋</div>
+        <h3>Regístrate como Afiliado</h3>
+        <p>Contáctanos por WhatsApp y en minutos tendrás acceso a todos los materiales y soporte personalizado.</p>
+      </div>
+      <div class="step-card fade-up">
+        <div class="step-num">02</div>
+        <div class="step-icon">🎯</div>
+        <h3>Identifica Oportunidades</h3>
+        <p>Localiza negocios sin presencia digital: tiendas locales, emprendedores, profesionistas que necesiten crecer en línea.</p>
+      </div>
+      <div class="step-card fade-up">
+        <div class="step-num">03</div>
+        <div class="step-icon">🤝</div>
+        <h3>Conecta y Refiere</h3>
+        <p>Comparte nuestros enlaces o pon a tus contactos en comunicación directa con el equipo de Az InnovationX.</p>
+      </div>
+      <div class="step-card fade-up">
+        <div class="step-num">04</div>
+        <div class="step-icon">💰</div>
+        <h3>Recibe tu Comisión</h3>
+        <p>Una vez que el cliente cierre y pague su proyecto, recibes el 20% del valor total. Transparente y seguro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="servicios">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Qué Promover</div>
+      <h2 class="section-heading">Servicios que <em>venden solos</em></h2>
+      <p class="section-desc">Todos los servicios están respaldados por calidad comprobada, precios competitivos y 30 días de garantía.</p>
+    </div>
+    <div class="services-grid">
+
+      <a href="https://articulos-azinnx.vercel.app/" target="_blank" class="service-card featured fade-up">
+        <div class="service-badge-new">NUEVO</div>
+        <div class="service-icon-wrap">✍️</div>
+        <h4>Artículos Az InnovationX</h4>
+        <p>Tienda de artículos con la marca: sudaderas, termos y gorras con 3 diseños exclusivos. Ideal para fans y seguidores.</p>
+        <div class="service-price">Precios desde $350 MXN</div>
+        <div class="service-commission">~$70 MXN por referencia</div>
+      </a>
+
+      <a href="https://paginawebaplicaciones.netlify.app/" target="_blank" class="service-card fade-up">
+        <div class="service-icon-wrap">📱</div>
+        <h4>Aplicaciones Móviles (PWA)</h4>
+        <p>Apps para Android instalables desde el navegador. Sin App Store, funcionales y modernas.</p>
+        <div class="service-price">Desde $2,800 – $3,700 MXN</div>
+        <div class="service-commission">~$560 – $740 MXN por referencia</div>
+      </a>
+
+      <a href="https://paginawebdetiendaonline.netlify.app/" target="_blank" class="service-card fade-up">
+        <div class="service-icon-wrap">🛒</div>
+        <h4>Tiendas Online (E-commerce)</h4>
+        <p>E-commerce completo con carrito de compras, pasarela de pagos y catálogo de productos.</p>
+        <div class="service-price">Desde $2,500 – $3,000 MXN</div>
+        <div class="service-commission">~$500 – $600 MXN por referencia</div>
+      </a>
+
+      <a href="https://chatbotsaz.netlify.app/" target="_blank" class="service-card fade-up">
+        <div class="service-icon-wrap">🤖</div>
+        <h4>Chatbots con IA</h4>
+        <p>Automatización con inteligencia artificial. Respuestas 24/7 e integración con WhatsApp.</p>
+        <div class="service-price">Desde $500 – $1,200 MXN</div>
+        <div class="service-commission">~$100 – $240 MXN por referencia</div>
+      </a>
+
+      <a href="https://paginawebseguridadinformatica.netlify.app/" target="_blank" class="service-card fade-up">
+        <div class="service-icon-wrap">🔒</div>
+        <h4>Seguridad Informática</h4>
+        <p>Análisis de vulnerabilidades, protección contra ataques, SSL avanzado para negocios digitales.</p>
+        <div class="service-price">Desde $2,800 – $3,800 MXN</div>
+        <div class="service-commission">~$560 – $760 MXN por referencia</div>
+      </a>
+
+      <a href="https://paginawebsolucionescloud.netlify.app/" target="_blank" class="service-card fade-up">
+        <div class="service-icon-wrap">☁️</div>
+        <h4>Soluciones Cloud</h4>
+        <p>Hosting, mantenimiento y hosting + dominio gratis el primer año. Infraestructura en la nube.</p>
+        <div class="service-price">Desde $1,200 – $2,000 MXN/año</div>
+        <div class="service-commission">~$240 – $400 MXN por referencia</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMMISSION CALCULATOR -->
+<section class="calc-section" id="calculadora">
+  <div class="container">
+    <div class="calc-card fade-up">
+      <div class="calc-header">
+        <div class="section-label">Calculadora</div>
+        <h2 class="section-heading" style="text-align:center;">¿Cuánto <em>puedes ganar</em>?</h2>
+        <p class="section-desc" style="margin:0 auto;">Selecciona un servicio para ver tu comisión estimada al referir un cliente.</p>
+      </div>
+      <div class="calc-grid">
+        <div class="calc-labels" id="calc-options">
+          <div class="calc-row active" data-min="560" data-max="740" onclick="selectCalc(this)">
+            <span>📱 App Móvil</span>
+            <strong>$2,800–$3,700</strong>
+          </div>
+          <div class="calc-row" data-min="500" data-max="600" onclick="selectCalc(this)">
+            <span>🛒 Tienda Online</span>
+            <strong>$2,500–$3,000</strong>
+          </div>
+          <div class="calc-row" data-min="100" data-max="240" onclick="selectCalc(this)">
+            <span>🤖 Chatbot IA</span>
+            <strong>$500–$1,200</strong>
+          </div>
+          <div class="calc-row" data-min="560" data-max="760" onclick="selectCalc(this)">
+            <span>🔒 Seguridad</span>
+            <strong>$2,800–$3,800</strong>
+          </div>
+          <div class="calc-row" data-min="240" data-max="400" onclick="selectCalc(this)">
+            <span>☁️ Cloud</span>
+            <strong>$1,200–$2,000</strong>
+          </div>
+        </div>
+        <div class="calc-result-box">
+          <div class="calc-result-label">Tu comisión estimada (20%)</div>
+          <span class="calc-result-amount" id="calc-amount">$560–$740</span>
+          <div class="calc-result-note" id="calc-note">MXN por cada cliente referido · App Móvil</div>
+          <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:0.8rem; color:var(--muted); margin-bottom:0.3rem;">Si refieres 5 clientes al mes:</div>
+            <span style="font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; color:var(--gold);" id="calc-monthly">$2,800–$3,700</span>
+            <div style="font-size:0.75rem; color:var(--muted); margin-top:0.3rem;">MXN mensuales</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="resources-section" id="recursos">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Recursos</div>
+      <h2 class="section-heading">Todo lo que <em>necesitas</em></h2>
+      <p class="section-desc">Accede a todos nuestros canales y plataformas para compartir y promover eficientemente.</p>
+    </div>
+
+    <div class="resources-grid fade-up" style="margin-top:3rem;">
+      <a href="https://az-innovation-x.vercel.app/" target="_blank" class="resource-card">
+        <div class="resource-icon">🌐</div>
+        <div>
+          <h4>Sitio Web Oficial</h4>
+          <p>az-innovation-x.vercel.app</p>
+        </div>
+        <span class="resource-arrow">→</span>
+      </a>
+      <a href="https://precios1.netlify.app/" target="_blank" class="resource-card">
+        <div class="resource-icon">💲</div>
+        <div>
+          <h4>Lista de Precios Completa</h4>
+          <p>precios1.netlify.app</p>
+        </div>
+        <span class="resource-arrow">→</span>
+      </a>
+      <a href="https://appsstoreaz.netlify.app/" target="_blank" class="resource-card">
+        <div class="resource-icon">📲</div>
+        <div>
+          <h4>Tienda de Apps</h4>
+          <p>appsstoreaz.netlify.app</p>
+        </div>
+        <span class="resource-arrow">→</span>
+      </a>
+      <a href="https://articulos-azinnx.vercel.app/" target="_blank" class="resource-card">
+        <div class="resource-icon">✍️</div>
+        <div>
+          <h4>Tienda de Artículos Az</h4>
+          <p>articulos-azinnx.vercel.app</p>
+        </div>
+        <span class="resource-arrow">→</span>
+      </a>
+      <a href="https://azinnovationx.blogspot.com/" target="_blank" class="resource-card">
+        <div class="resource-icon">📝</div>
+        <div>
+          <h4>Blog Oficial</h4>
+          <p>azinnovationx.blogspot.com</p>
+        </div>
+        <span class="resource-arrow">→</span>
+      </a>
+      <a href="https://articulos-azinnx.vercel.app/" target="_blank" class="resource-card">
+        <div class="resource-icon">📰</div>
+        <div>
+          <h4>Artículos y Noticias</h4>
+          <p>articulos-azinnx.vercel.app</p>
+        </div>
+        <span class="resource-arrow">→</span>
+      </a>
+    </div>
+
+    <h3 style="font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:700; margin-top:3rem; margin-bottom:0; color:var(--text);" class="fade-up">Síguenos en Redes Sociales</h3>
+    <div class="social-grid fade-up">
+      <a href="https://wa.me/525653915739" target="_blank" class="social-card wa">
+        <div class="social-icon">📱</div>
+        <div class="social-name">WhatsApp</div>
+        <div class="social-handle">Contacto directo</div>
+      </a>
+      <a href="https://www.facebook.com/AzInnovationX" target="_blank" class="social-card fb">
+        <div class="social-icon">👥</div>
+        <div class="social-name">Facebook</div>
+        <div class="social-handle">@AzInnovationX</div>
+      </a>
+      <a href="https://www.instagram.com/azinnovationx" target="_blank" class="social-card ig">
+        <div class="social-icon">📸</div>
+        <div class="social-name">Instagram</div>
+        <div class="social-handle">@azinnovationx</div>
+      </a>
+      <a href="https://www.tiktok.com/@innovationx09" target="_blank" class="social-card tk">
+        <div class="social-icon">🎵</div>
+        <div class="social-name">TikTok</div>
+        <div class="social-handle">@innovationx09</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="tips-section" id="consejos">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Consejos de Oro</div>
+      <h2 class="section-heading">Estrategias para <em>tener éxito</em></h2>
+    </div>
+    <div class="tips-grid fade-up">
+      <div class="tip-card">
+        <h3>🎯 Para Principiantes</h3>
+        <ul>
+          <li><strong>Ayuda, no vendas:</strong> Enfócate en resolver problemas reales de negocios.</li>
+          <li><strong>Identifica el dolor:</strong> Negocios sin web, sin redes, sin automatización.</li>
+          <li><strong>Sé auténtico:</strong> Las recomendaciones genuinas cierran mejor.</li>
+          <li><strong>Conoce el producto:</strong> Visita todas las demos de cada servicio.</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>📍 Dónde Compartir</h3>
+        <ul>
+          <li>Grupos de Facebook de emprendedores y PyMEs</li>
+          <li>Comunidades de LinkedIn en tu industria</li>
+          <li>Estados y difusiones de WhatsApp Business</li>
+          <li>Grupos locales de networking presencial</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>🏆 Perfil del Cliente Ideal</h3>
+        <ul>
+          <li>Tiendas físicas sin presencia en línea</li>
+          <li>Restaurantes, salones, clínicas, consultorios</li>
+          <li>Emprendedores que quieran lanzar su negocio digital</li>
+          <li>Profesionistas que ofrezcan servicios en línea</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>💡 Maximiza tus Comisiones</h3>
+        <ul>
+          <li>Ofrece el Paquete Web + Chatbot ($3,000–$3,800)</li>
+          <li>Menciona siempre la garantía de 30 días sin bugs</li>
+          <li>Destaca que incluye dominio + hosting gratis el 1er año</li>
+          <li>Usa los mensajes de ejemplo listos para copiar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGE TEMPLATES -->
+<section class="templates-section" id="mensajes">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Plantillas</div>
+      <h2 class="section-heading">Mensajes listos <em>para usar</em></h2>
+      <p class="section-desc">Copia, personaliza y envía. Diseñados para ser naturales y convincentes.</p>
+    </div>
+
+    <div style="margin-top:2.5rem;">
+
+      <div class="template-card fade-up">
+        <button class="copy-btn" onclick="copyTemplate(this,'tpl1')">Copiar</button>
+        <div class="template-label">Mensaje General · Para cualquier contacto</div>
+        <p class="template-text" id="tpl1">¡Hola! 👋 Si buscas potenciar tu negocio en el mundo digital, te recomiendo Az InnovationX. Son especialistas en páginas web, apps móviles, tiendas online y chatbots con IA. Tienen garantía de 30 días y el primer año de hosting + dominio va incluido. ¡Yo confío en ellos! 🚀 Más info: https://az-innovation-x.vercel.app/</p>
+      </div>
+
+      <div class="template-card fade-up">
+        <button class="copy-btn" onclick="copyTemplate(this,'tpl2')">Copiar</button>
+        <div class="template-label">Para Negocios Locales · Restaurantes, tiendas, clínicas</div>
+        <p class="template-text" id="tpl2">Hola, ¿has pensado en tener presencia online para llegar a más clientes? Conozco una empresa, Az InnovationX, que hace páginas web muy profesionales a precios competitivos, desde $2,000 MXN, con dominio y hosting incluidos el primer año. ¿Te interesaría una asesoría sin costo? Te puedo dar el contacto directo. 💼</p>
+      </div>
+
+      <div class="template-card fade-up">
+        <button class="copy-btn" onclick="copyTemplate(this,'tpl3')">Copiar</button>
+        <div class="template-label">Para Emprendedores · Lanzamiento de negocio</div>
+        <p class="template-text" id="tpl3">¡Hey! Si estás emprendiendo y necesitas presencia digital, checa a Az InnovationX. Entienden perfectamente las necesidades de quienes empezamos. Tienen desde páginas web hasta apps móviles y tiendas online, con asesoría personalizada incluida. Te dejo el contacto directo con el fundador: https://wa.me/525653915739 ✨</p>
+      </div>
+
+      <div class="template-card fade-up">
+        <button class="copy-btn" onclick="copyTemplate(this,'tpl4')">Copiar</button>
+        <div class="template-label">Para Grupos de Facebook · Post en comunidades</div>
+        <p class="template-text" id="tpl4">📣 ¿Tu negocio todavía no tiene página web o tienda online? Az InnovationX ofrece soluciones digitales completas para PyMEs: ✅ Páginas web desde $2,000 MXN ✅ Apps móviles ✅ Tiendas online con pagos integrados ✅ Chatbots con IA 24/7 ✅ 30 días de garantía sin bugs ✅ Dominio + Hosting GRATIS el 1er año Empresa 100% mexicana 🇲🇽 · Huixquilucan, Edo. Méx. Info: https://az-innovation-x.vercel.app/ | WhatsApp: https://wa.me/525653915739</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card fade-up">
+      <div class="section-label">¿Listo?</div>
+      <h2>Empieza a ganar <em style="background:linear-gradient(90deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">hoy mismo</em></h2>
+      <p>Únete al programa, recibe tu material de apoyo y empieza a referir. El equipo de Az InnovationX estará contigo en cada paso.</p>
+      <div class="btn-group">
+        <a href="https://wa.me/525653915739?text=Hola%20Evaristo%2C%20quiero%20unirme%20al%20programa%20de%20afiliados" target="_blank" class="btn-primary">
+          💬 Unirme por WhatsApp
+        </a>
+        <a href="mailto:soporteseguro98@gmail.com" class="btn-secondary">
+          📧 Enviar Email
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">Az <span>InnovationX</span></div>
+    <p>Donde las Ideas Cobran Vida · Huixquilucan, Estado de México 🇲🇽</p>
+    <p style="margin-top:0.5rem; font-size:0.78rem;">© 2025 Az InnovationX · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll Progress Bar
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+
+  // Intersection Observer for fade-up
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // Commission Calculator
+  function selectCalc(el) {
+    document.querySelectorAll('.calc-row').forEach(r => r.classList.remove('active'));
+    el.classList.add('active');
+    const min = parseInt(el.dataset.min);
+    const max = parseInt(el.dataset.max);
+    const label = el.querySelector('span').textContent;
+    document.getElementById('calc-amount').textContent = `$${min.toLocaleString()}–$${max.toLocaleString()}`;
+    document.getElementById('calc-note').textContent = `MXN por cada cliente referido · ${label}`;
+    document.getElementById('calc-monthly').textContent = `$${(min*5).toLocaleString()}–$${(max*5).toLocaleString()}`;
+  }
+
+  // Copy Templates
+  function copyTemplate(btn, id) {
+    const text = document.getElementById(id).textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
 </body>
 </html>
